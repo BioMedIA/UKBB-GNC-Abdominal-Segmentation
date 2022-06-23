@@ -70,12 +70,20 @@ def main():
     
     if dataset_name == 'ukbb' and num_channels == 4:
         task_name = '501'
+        retrieval_url = 'https://gitlab.com/turkaykart/ukbb-gnc-abdominal-segmentation/-/raw/main/ukbb_4ch_model.zip?inline=false'
+        retrival_name = 'ukbb_4ch_model.zip'
     elif dataset_name == 'ukbb' and num_channels == 1:
         task_name = '502'
+        retrieval_url = 'https://gitlab.com/turkaykart/ukbb-gnc-abdominal-segmentation/-/raw/main/ukbb_1ch_model.zip?inline=false'
+        retrival_name = 'ukbb_1ch_model.zip'
     elif dataset_name == 'gnc' and num_channels == 4:
         task_name = '503'
+        retrieval_url = 'https://gitlab.com/turkaykart/ukbb-gnc-abdominal-segmentation/-/raw/main/gnc_4ch_model.zip?inline=false'
+        retrival_name = 'gnc_4ch_model.zip'
     elif dataset_name == 'gnc' and num_channels == 1:
         task_name = '504'
+        retrieval_url = 'https://gitlab.com/turkaykart/ukbb-gnc-abdominal-segmentation/-/raw/main/gnc_1ch_model.zip?inline=false'
+        retrival_name = 'gnc_1ch_model.zip'
     
     model_location = os.path.join(os.environ['RESULTS_FOLDER'], 'nnUNet', model, 'Task{0}_{1}_{2}ch'.format(task_name, dataset_name, num_channels), 'nnUNetTrainerV2__nnUNetPlansv2.1', folds, 'model_final_checkpoint.model')
     logging.info('model_location: {0}\n'.format(model_location))
@@ -83,9 +91,9 @@ def main():
         logging.info('model exists at the location...')
     else:
         logging.info('Downloading: [Dataset: {0}, Number_of_Channels:{1}]...'.format(dataset_name, num_channels))
-        urllib.request.urlretrieve('https://gitlab.com/turkaykart/ukbb-gnc-abdominal-segmentation/-/raw/main/ukbb_4ch_model.zip?inline=false', 'ukbb_4ch_model.zip')
-        os.chmod('ukbb_4ch_model.zip', 0o755)
-        zip_ref = zipfile.ZipFile('ukbb_4ch_model.zip', 'r')
+        urllib.request.urlretrieve(retrieval_url, retrival_name)
+        os.chmod(retrival_name, 0o755)
+        zip_ref = zipfile.ZipFile(retrival_name, 'r')
         zip_ref.extractall(os.environ['RESULTS_FOLDER'])
         zip_ref.close()
         os.system('chmod -R 755 {0}'.format(os.environ['RESULTS_FOLDER']))
