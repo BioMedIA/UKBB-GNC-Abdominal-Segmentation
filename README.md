@@ -48,8 +48,8 @@ python convert2nnunet.py
 The script generates the predictions for abdominal organs (example below is for UKBB with 4-channel model).
 
 ```
-CUDA_VISIBLE_DEVICES=0 
-RESULTS_FOLDER=models/ 
+export CUDA_VISIBLE_DEVICES=0 
+export RESULTS_FOLDER=models/ 
 python predict.py 
     --nnunet_folder my_nnunet_data/ 
     --prediction_folder my_predictions/ 
