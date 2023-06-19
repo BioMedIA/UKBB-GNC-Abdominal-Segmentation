@@ -146,7 +146,7 @@ def main():
     logging.warning('num_subjects: {0}'.format(num_subjects))
     logging.warning('start_idx: {0}\n'.format(start_idx))
     
-    zip_files = glob.glob(os.path.join(zip_folder, '*_20201_2_0.zip'))
+    zip_files = glob.glob(os.path.join(zip_folder, '*_20201_*.zip'))
     zip_files.sort()
     if start_idx < 0:
         start_idx = 0
@@ -170,7 +170,7 @@ def main():
 
     for f in zip_files:
         # assumed the first part of the file name describes the subject ID
-        subject_id = os.path.basename(f).split('_')[0]
+        subject_id = os.path.basename(f).split('_')[0] + '_' + os.path.basename(f).split('_')[2]
         subject_dir = os.path.join(nifti_folder, subject_id, '')
         stitch(f, subject_dir, subject_id, tool)
 
